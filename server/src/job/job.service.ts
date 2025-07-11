@@ -5,6 +5,7 @@ import { UpdateJobDto } from './dto/update-job.dto';
 import { Prisma, $Enums } from '@prisma/client'; // 👈 added $Enums
 import { JobType } from '@prisma/client';
 
+
 @Injectable()
 export class JobService {
   constructor(private prisma: PrismaService) {}
@@ -33,7 +34,7 @@ export class JobService {
       title,
       companyName,
       location,
-      jobType: jobType as $Enums.JobType,
+      jobType: jobType as Prisma.JobType, // e.g. Prisma.JobType.FULL_TIME,
       salaryMin,
       salaryMax,
       description,
