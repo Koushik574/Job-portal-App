@@ -1,15 +1,17 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // ✅ Enable CORS
   app.enableCors({
-    origin: 'http://localhost:3000', // your frontend origin
+    origin: 'http://localhost:3000',
     credentials: true,
   });
 
-  await app.listen(process.env.PORT ?? 3005);
+  const port = process.env.PORT; // ✅ No fallback value!
+  if (!port) {
+    throw new Error('❌ PORT environment variable is not defined!');
+  }
+
+  await app.listen(port);
+  console.log(`🚀 Server running on port ${port}`);
 }
 bootstrap();
