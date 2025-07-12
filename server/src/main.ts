@@ -1,3 +1,6 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -6,12 +9,6 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const port = process.env.PORT; // ✅ No fallback value!
-  if (!port) {
-    throw new Error('❌ PORT environment variable is not defined!');
-  }
-
-  await app.listen(port);
-  console.log(`🚀 Server running on port ${port}`);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
